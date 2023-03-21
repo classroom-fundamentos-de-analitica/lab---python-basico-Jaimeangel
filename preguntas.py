@@ -60,9 +60,6 @@ def pregunta_02():
     
     return tuplas
 
-pregunta_02()
-
-
 def pregunta_03():
     """
     Retorne la suma de la columna 2 por cada letra de la primera columna como una lista
@@ -78,7 +75,25 @@ def pregunta_03():
     ]
 
     """
-    return
+    data=open("./data.csv","r")
+    letter_count={
+        'A':0,
+        'B':0,
+        'C':0,
+        'D':0,
+        'E':0
+    }
+    list_letter_count=[]
+    for row in data:
+        columa1=row.split(',')[0]
+        letter_specific=columa1.split("\t")[0]
+        amount_for_letter=int(columa1.split("\t")[1])
+        letter_count[letter_specific]+=amount_for_letter
+    
+    for key,value in letter_count.items():
+        list_letter_count.append((key,value))
+    
+    return list_letter_count
 
 
 def pregunta_04():
