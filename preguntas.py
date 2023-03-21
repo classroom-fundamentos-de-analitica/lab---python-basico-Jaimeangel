@@ -45,7 +45,22 @@ def pregunta_02():
     ]
 
     """
-    return
+    data=open("./data.csv","r")
+    words='ABCDE'
+    list_words=[]
+    tuplas=[]
+    for row in data:
+        columa1=row.split(',')[0]
+        number_specific=columa1.split("\t")[0]
+        list_words.append(number_specific)
+
+    for w in words:
+        count=list_words.count(w)
+        tuplas.append((w,count))
+    
+    return tuplas
+
+pregunta_02()
 
 
 def pregunta_03():
