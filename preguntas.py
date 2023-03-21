@@ -21,8 +21,14 @@ def pregunta_01():
     214
 
     """
-    return
-
+    data=open("./data.csv","r")
+    counter=0
+    for row in data:
+        columa1=row.split(',')[0]
+        number_specific=columa1.split("\t")[1]
+        number=int(number_specific)
+        counter+=number
+    return counter
 
 def pregunta_02():
     """
