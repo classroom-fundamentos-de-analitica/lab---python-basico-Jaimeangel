@@ -158,7 +158,6 @@ def pregunta_05():
         {"letter":"D","max_value":None,"min_value":None},
         {"letter":"E","max_value":None,"min_value":None}
       ]
-    
     def max_min(letr,value):
         for i in list_letter:
             if letr == i["letter"]:
@@ -181,10 +180,8 @@ def pregunta_05():
         max_min(letter_specific,count)
     sort_list=[]
     for data in list_letter:
-        sort_list.append(data["letter"],data["max_value"],data["min_value"])
-    
-pregunta_05()
-
+        sort_list.append((data["letter"],data["max_value"],data["min_value"]))
+    return sort_list
 
 def pregunta_06():
     """
@@ -208,8 +205,34 @@ def pregunta_06():
     ]
 
     """
-    return
+    keys_data={}
+    def max_min(list):
+        new_list=list
+        for row in new_list:
+            new_row=row.split(':')
+            clave=new_row[0]
+            valor=new_row[1]
 
+            if clave not in keys_data:
+                keys_data[clave]={'key':clave,'min_value':valor,'max_value':valor}
+            else:
+                if valor<keys_data[clave]['min_value']:
+                    keys_data[clave]['min_value']=valor
+                if valor>keys_data[clave]['max_value']:
+                    keys_data[clave]['max_value']=valor
+
+    data=open("./data.csv","r")
+
+    for row in data:
+        keys=row.split('\t')[4]
+        key=keys.split(',')
+        list_keys=key[0:len(key)-1]
+        last_key=key[len(key)-1].split('\n')[0]
+        list_keys.append(last_key)
+
+        max_min(list_keys)
+    print(keys_data)
+pregunta_06()
 
 def pregunta_07():
     """
