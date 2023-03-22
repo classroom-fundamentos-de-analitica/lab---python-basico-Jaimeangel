@@ -135,8 +135,6 @@ def pregunta_04():
     list_month_count.sort()
     return list_month_count
 
-
-
 def pregunta_05():
     """
     Retorne una lista de tuplas con el valor maximo y minimo de la columna 2 por cada
@@ -152,7 +150,40 @@ def pregunta_05():
     ]
 
     """
-    return
+    data=open("./data.csv","r")
+    list_letter=[        
+        {"letter":"A","max_value":None,"min_value":None},
+        {"letter":"B","max_value":None,"min_value":None},
+        {"letter":"C","max_value":None,"min_value":None},
+        {"letter":"D","max_value":None,"min_value":None},
+        {"letter":"E","max_value":None,"min_value":None}
+      ]
+    
+    def max_min(letr,value):
+        for i in list_letter:
+            if letr == i["letter"]:
+                if i["min_value"] is None:
+                    i["min_value"]=value
+                else:
+                    if value<i["min_value"]:
+                        i["min_value"]=value
+
+                if i["max_value"] is None:
+                    i["max_value"]=value
+                else:
+                    if value>i["max_value"]:
+                        i["max_value"]=value
+                break    
+    for row in data:
+        columa1=row.split(',')[0]
+        letter_specific=columa1.split("\t")[0]
+        count=int(columa1.split("\t")[1]) 
+        max_min(letter_specific,count)
+    sort_list=[]
+    for data in list_letter:
+        sort_list.append(data["letter"],data["max_value"],data["min_value"])
+    
+pregunta_05()
 
 
 def pregunta_06():
