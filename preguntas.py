@@ -46,18 +46,19 @@ def pregunta_02():
 
     """
     data=open("./data.csv","r")
-    words='ABCDE'
-    list_words=[]
+    list_letter={}
     tuplas=[]
     for row in data:
         columa1=row.split(',')[0]
-        number_specific=columa1.split("\t")[0]
-        list_words.append(number_specific)
-
-    for w in words:
-        count=list_words.count(w)
-        tuplas.append((w,count))
+        letter_specific=columa1.split("\t")[0]
+        if letter_specific in list_letter:
+            list_letter[letter_specific]+=1
+        else:
+            list_letter[letter_specific]=1
     
+    for key,value in list_letter.items():
+        tuplas.append((key,value))
+    tuplas.sort()
     return tuplas
 
 def pregunta_03():
@@ -95,7 +96,6 @@ def pregunta_03():
     
     return list_letter_count
 
-
 def pregunta_04():
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la cantidad de
@@ -118,7 +118,23 @@ def pregunta_04():
     ]
 
     """
-    return
+    data=open("./data.csv","r")
+    month_count={}
+    list_month_count=[]
+    for row in data:
+        columa1=row.split(',')[0]
+        date=columa1.split('\t')[2]
+        month=date.split('-')[1]
+        if month in month_count:
+            month_count[month]+=1
+        else:
+            month_count[month]=1
+    
+    for key,value in month_count.items():
+        list_month_count.append((key,value))
+    list_month_count.sort()
+    return list_month_count
+
 
 
 def pregunta_05():
