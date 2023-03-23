@@ -211,7 +211,7 @@ def pregunta_06():
         for row in new_list:
             new_row=row.split(':')
             clave=new_row[0]
-            valor=new_row[1]
+            valor=int(new_row[1])
 
             if clave not in keys_data:
                 keys_data[clave]={'key':clave,'min_value':valor,'max_value':valor}
@@ -229,9 +229,13 @@ def pregunta_06():
         list_keys=key[0:len(key)-1]
         last_key=key[len(key)-1].split('\n')[0]
         list_keys.append(last_key)
-
         max_min(list_keys)
-    print(keys_data)
+    
+    sorted_dict = dict(sorted(keys_data.items()))
+    list_tuples=[]
+    for i in sorted_dict.values():
+        list_tuples.append((i['key'],i['min_value'],i['max_value']))
+    print(list_tuples)
 pregunta_06()
 
 def pregunta_07():
