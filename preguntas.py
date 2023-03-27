@@ -367,7 +367,6 @@ def pregunta_09():
     sorted_dict = dict(sorted(registros_claves.items()))
     return sorted_dict
 
-
 def pregunta_10():
     """
     Retorne una lista de tuplas contengan por cada tupla, la letra de la columna 1 y la
@@ -416,7 +415,6 @@ def pregunta_10():
         registros_clave.append((clave,len(column4),len(column5)))
     return registros_clave
 
-
 def pregunta_11():
     """
     Retorne un diccionario que contengan la suma de la columna 2 para cada letra de la
@@ -463,10 +461,7 @@ def pregunta_11():
                 results[letra]+=nbr_colum
     sorted_dict = dict(sorted(results.items()))
     return sorted_dict
-
-    
-
-
+  
 def pregunta_12():
     """
     Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
