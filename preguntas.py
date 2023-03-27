@@ -425,4 +425,32 @@ def pregunta_12():
     }
 
     """
-    return
+    import re
+    data=open("./data.csv","r")
+    registros_clave={}
+
+    for row in data:
+        column=row.split(',')
+        registros=0
+        clave=''
+
+        for string_column in column:
+
+            ltr=re.findall('[A-Z]',string_column)
+            if len(ltr)>0:
+                new_ltr=ltr[0]
+                clave+=new_ltr
+
+            x=re.findall(r":[0-9]+",string_column)
+            if len(x)>0:
+                new_x=int(x[0].replace(':',''))
+                registros+=new_x     
+
+        if clave not in registros_clave:
+            registros_clave[clave]=registros
+        else:
+            registros_clave[clave]+=registros
+
+    sorted_dict = dict(sorted(registros_clave.items()))
+    return sorted_dict
+    
