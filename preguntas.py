@@ -280,7 +280,6 @@ def pregunta_07():
         list_sort.append((int(sorted_dict[i]['key']),sorted_dict[i]['list']))
     return list_sort
 
-
 def pregunta_08():
     """
     Genere una lista de tuplas, donde el primer elemento de cada tupla contiene  el valor
@@ -303,8 +302,28 @@ def pregunta_08():
     ]
 
     """
-    return
+    data=open("./data.csv","r")
+    response={}
 
+    for row in data:
+        column1=row.split(',')[0]
+        column1=column1.split('\t')
+
+        ltr_csv=column1[0]
+        number_csv=column1[1]
+
+        if number_csv not in response:
+            response[number_csv]={'key':number_csv,'list':[ltr_csv]}
+        else:
+            if ltr_csv not in response[number_csv]['list']:
+                response[number_csv]['list'].append(ltr_csv)
+                response[number_csv]['list'].sort()
+
+    sorted_dict = dict(sorted(response.items()))
+    list_sort=[]
+    for i in sorted_dict:
+        list_sort.append((int(sorted_dict[i]['key']),sorted_dict[i]['list']))
+    return list_sort
 
 def pregunta_09():
     """
