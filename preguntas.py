@@ -77,23 +77,23 @@ def pregunta_03():
 
     """
     data=open("./data.csv","r")
-    letter_count={
-        'A':0,
-        'B':0,
-        'C':0,
-        'D':0,
-        'E':0
-    }
+    letter_count={}
+
     list_letter_count=[]
+
     for row in data:
         columa1=row.split(',')[0]
         letter_specific=columa1.split("\t")[0]
         amount_for_letter=int(columa1.split("\t")[1])
-        letter_count[letter_specific]+=amount_for_letter
-    
+
+        if letter_specific not in letter_count:
+            letter_count[letter_specific]=amount_for_letter
+        else:
+            letter_count[letter_specific]+=amount_for_letter
+
     for key,value in letter_count.items():
         list_letter_count.append((key,value))
-    
+    list_letter_count.sort()
     return list_letter_count
 
 def pregunta_04():
