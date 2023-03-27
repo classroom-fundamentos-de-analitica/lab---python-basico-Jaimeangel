@@ -414,11 +414,7 @@ def pregunta_10():
                 column5.append(new_x)
 
         registros_clave.append((clave,len(column4),len(column5)))
-        print(column4)
-        print(column5)
-        print(clave)
-        break
-pregunta_10() 
+    return registros_clave
 
 
 def pregunta_11():
@@ -439,6 +435,35 @@ def pregunta_11():
 
 
     """
+    import re
+    data=open("./data.csv","r")
+    results={}
+
+    for row in data:
+        column=row.split(',')
+        column4=[]
+
+        for string_column in column:
+            ltr=re.findall(r'\b[a-z]\b',string_column)
+            if len(ltr)>0:
+                new_ltr=ltr[0]
+                column4.append(new_ltr)
+
+        for number_colum in column[0]:
+            number_clm=re.findall(r'\b[0-9]\b',number_colum)
+            if len(number_clm)>0:
+                new_ltr=number_clm[0]
+                nbr_colum=int(new_ltr)
+                break
+    
+        for letra in column4:
+            if letra not in results:
+                results[letra]=nbr_colum
+            else:
+                results[letra]+=nbr_colum
+    sorted_dict = dict(sorted(results.items()))
+    return sorted_dict
+
     
 
 
