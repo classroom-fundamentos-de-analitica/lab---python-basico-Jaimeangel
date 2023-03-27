@@ -345,7 +345,27 @@ def pregunta_09():
     }
 
     """
-    return
+    import re
+    data=open("./data.csv","r")
+    registros_claves={}
+
+    for row in data:
+        column=row.split(',')
+        registros=[]
+        for string_column in column:
+            x=re.findall('[a-z][a-z][a-z]:[0-999]',string_column)
+            if len(x)>0:
+                registros.append(x[0])
+        for cadena in registros:
+            valores=cadena.split(':')
+            clave=valores[0]
+
+            if clave not in registros_claves:
+                registros_claves[clave]=1
+            else:
+                registros_claves[clave]+=1
+    sorted_dict = dict(sorted(registros_claves.items()))
+    return sorted_dict
 
 
 def pregunta_10():
