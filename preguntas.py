@@ -235,8 +235,7 @@ def pregunta_06():
     list_tuples=[]
     for i in sorted_dict.values():
         list_tuples.append((i['key'],i['min_value'],i['max_value']))
-    print(list_tuples)
-pregunta_06()
+    return list_tuples
 
 def pregunta_07():
     """
@@ -259,7 +258,27 @@ def pregunta_07():
     ]
 
     """
-    return
+    
+    data=open("./data.csv","r")
+    response={}
+
+    for row in data:
+        column1=row.split(',')[0]
+        column1=column1.split('\t')
+
+        ltr_csv=column1[0]
+        number_csv=column1[1]
+
+        if number_csv not in response:
+            response[number_csv]={'key':number_csv,'list':[ltr_csv]}
+        else:
+            response[number_csv]['list'].append(ltr_csv)
+
+    sorted_dict = dict(sorted(response.items()))
+    list_sort=[]
+    for i in sorted_dict:
+        list_sort.append((int(sorted_dict[i]['key']),sorted_dict[i]['list']))
+    return list_sort
 
 
 def pregunta_08():
