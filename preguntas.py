@@ -386,7 +386,39 @@ def pregunta_10():
 
 
     """
-    return
+    import re
+    data=open("./data.csv","r")
+    registros_clave=[]
+
+    for row in data:
+        column=row.split(',')
+        column4=[]
+        column5=[]
+        clave=''
+
+        for string_column in column:
+
+            ltr_upper=re.findall('[A-Z]',string_column)
+            if len(ltr_upper)>0:
+                ltr_upper=ltr_upper[0]
+                clave+=ltr_upper
+
+            ltr=re.findall(r'\b[a-z]\b',string_column)
+            if len(ltr)>0:
+                new_ltr=ltr[0]
+                column4.append(new_ltr)
+
+            x=re.findall(r":[0-9]+",string_column)
+            if len(x)>0:
+                new_x=int(x[0].replace(':',''))
+                column5.append(new_x)
+
+        registros_clave.append((clave,len(column4),len(column5)))
+        print(column4)
+        print(column5)
+        print(clave)
+        break
+pregunta_10() 
 
 
 def pregunta_11():
@@ -407,7 +439,7 @@ def pregunta_11():
 
 
     """
-    return
+    
 
 
 def pregunta_12():
