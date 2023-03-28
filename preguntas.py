@@ -151,36 +151,28 @@ def pregunta_05():
 
     """
     data=open("./data.csv","r")
-    list_letter=[        
-        {"letter":"A","max_value":None,"min_value":None},
-        {"letter":"B","max_value":None,"min_value":None},
-        {"letter":"C","max_value":None,"min_value":None},
-        {"letter":"D","max_value":None,"min_value":None},
-        {"letter":"E","max_value":None,"min_value":None}
-      ]
+    list_letter={}
+    
     def max_min(letr,value):
-        for i in list_letter:
-            if letr == i["letter"]:
-                if i["min_value"] is None:
-                    i["min_value"]=value
-                else:
-                    if value<i["min_value"]:
-                        i["min_value"]=value
+        if letr not in list_letter:
+            list_letter[letr]={'key':letr,'max_number':value,'min_number':value}
+        else:
+            if value>list_letter[letr]['max_number']:
+                list_letter[letr]['max_number']=value
 
-                if i["max_value"] is None:
-                    i["max_value"]=value
-                else:
-                    if value>i["max_value"]:
-                        i["max_value"]=value
-                break    
+            if value<list_letter[letr]['min_number']:
+                list_letter[letr]['min_number']=value
+       
     for row in data:
         columa1=row.split(',')[0]
         letter_specific=columa1.split("\t")[0]
         count=int(columa1.split("\t")[1]) 
         max_min(letter_specific,count)
+    
+    sorted_dict = dict(sorted(list_letter.items()))
     sort_list=[]
-    for data in list_letter:
-        sort_list.append((data["letter"],data["max_value"],data["min_value"]))
+    for data in sorted_dict:
+        sort_list.append((sorted_dict[data]["key"],sorted_dict[data]['max_number'],sorted_dict[data]['min_number']))
     return sort_list
 
 def pregunta_06():
