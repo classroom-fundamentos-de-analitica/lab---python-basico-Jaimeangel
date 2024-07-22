@@ -21,8 +21,14 @@ def pregunta_01():
     214
 
     """
-    return
-
+    data=open("./data.csv","r")
+    counter=0
+    for row in data:
+        columa1=row.split(',')[0]
+        number_specific=columa1.split("\t")[1]
+        number=int(number_specific)
+        counter+=number
+    return counter
 
 def pregunta_02():
     """
@@ -39,8 +45,21 @@ def pregunta_02():
     ]
 
     """
-    return
-
+    data=open("./data.csv","r")
+    list_letter={}
+    tuplas=[]
+    for row in data:
+        columa1=row.split(',')[0]
+        letter_specific=columa1.split("\t")[0]
+        if letter_specific in list_letter:
+            list_letter[letter_specific]+=1
+        else:
+            list_letter[letter_specific]=1
+    
+    for key,value in list_letter.items():
+        tuplas.append((key,value))
+    tuplas.sort()
+    return tuplas
 
 def pregunta_03():
     """
@@ -57,8 +76,25 @@ def pregunta_03():
     ]
 
     """
-    return
+    data=open("./data.csv","r")
+    letter_count={}
 
+    list_letter_count=[]
+
+    for row in data:
+        columa1=row.split(',')[0]
+        letter_specific=columa1.split("\t")[0]
+        amount_for_letter=int(columa1.split("\t")[1])
+
+        if letter_specific not in letter_count:
+            letter_count[letter_specific]=amount_for_letter
+        else:
+            letter_count[letter_specific]+=amount_for_letter
+
+    for key,value in letter_count.items():
+        list_letter_count.append((key,value))
+    list_letter_count.sort()
+    return list_letter_count
 
 def pregunta_04():
     """
@@ -82,8 +118,22 @@ def pregunta_04():
     ]
 
     """
-    return
-
+    data=open("./data.csv","r")
+    month_count={}
+    list_month_count=[]
+    for row in data:
+        columa1=row.split(',')[0]
+        date=columa1.split('\t')[2]
+        month=date.split('-')[1]
+        if month in month_count:
+            month_count[month]+=1
+        else:
+            month_count[month]=1
+    
+    for key,value in month_count.items():
+        list_month_count.append((key,value))
+    list_month_count.sort()
+    return list_month_count
 
 def pregunta_05():
     """
@@ -100,8 +150,30 @@ def pregunta_05():
     ]
 
     """
-    return
+    data=open("./data.csv","r")
+    list_letter={}
+    
+    def max_min(letr,value):
+        if letr not in list_letter:
+            list_letter[letr]={'key':letr,'max_number':value,'min_number':value}
+        else:
+            if value>list_letter[letr]['max_number']:
+                list_letter[letr]['max_number']=value
 
+            if value<list_letter[letr]['min_number']:
+                list_letter[letr]['min_number']=value
+       
+    for row in data:
+        columa1=row.split(',')[0]
+        letter_specific=columa1.split("\t")[0]
+        count=int(columa1.split("\t")[1]) 
+        max_min(letter_specific,count)
+    
+    sorted_dict = dict(sorted(list_letter.items()))
+    sort_list=[]
+    for data in sorted_dict:
+        sort_list.append((sorted_dict[data]["key"],sorted_dict[data]['max_number'],sorted_dict[data]['min_number']))
+    return sort_list
 
 def pregunta_06():
     """
@@ -125,8 +197,37 @@ def pregunta_06():
     ]
 
     """
-    return
+    keys_data={}
+    def max_min(list):
+        new_list=list
+        for row in new_list:
+            new_row=row.split(':')
+            clave=new_row[0]
+            valor=int(new_row[1])
 
+            if clave not in keys_data:
+                keys_data[clave]={'key':clave,'min_value':valor,'max_value':valor}
+            else:
+                if valor<keys_data[clave]['min_value']:
+                    keys_data[clave]['min_value']=valor
+                if valor>keys_data[clave]['max_value']:
+                    keys_data[clave]['max_value']=valor
+
+    data=open("./data.csv","r")
+
+    for row in data:
+        keys=row.split('\t')[4]
+        key=keys.split(',')
+        list_keys=key[0:len(key)-1]
+        last_key=key[len(key)-1].split('\n')[0]
+        list_keys.append(last_key)
+        max_min(list_keys)
+    
+    sorted_dict = dict(sorted(keys_data.items()))
+    list_tuples=[]
+    for i in sorted_dict.values():
+        list_tuples.append((i['key'],i['min_value'],i['max_value']))
+    return list_tuples
 
 def pregunta_07():
     """
@@ -149,8 +250,27 @@ def pregunta_07():
     ]
 
     """
-    return
+    
+    data=open("./data.csv","r")
+    response={}
 
+    for row in data:
+        column1=row.split(',')[0]
+        column1=column1.split('\t')
+
+        ltr_csv=column1[0]
+        number_csv=column1[1]
+
+        if number_csv not in response:
+            response[number_csv]={'key':number_csv,'list':[ltr_csv]}
+        else:
+            response[number_csv]['list'].append(ltr_csv)
+
+    sorted_dict = dict(sorted(response.items()))
+    list_sort=[]
+    for i in sorted_dict:
+        list_sort.append((int(sorted_dict[i]['key']),sorted_dict[i]['list']))
+    return list_sort
 
 def pregunta_08():
     """
@@ -174,8 +294,28 @@ def pregunta_08():
     ]
 
     """
-    return
+    data=open("./data.csv","r")
+    response={}
 
+    for row in data:
+        column1=row.split(',')[0]
+        column1=column1.split('\t')
+
+        ltr_csv=column1[0]
+        number_csv=column1[1]
+
+        if number_csv not in response:
+            response[number_csv]={'key':number_csv,'list':[ltr_csv]}
+        else:
+            if ltr_csv not in response[number_csv]['list']:
+                response[number_csv]['list'].append(ltr_csv)
+                response[number_csv]['list'].sort()
+
+    sorted_dict = dict(sorted(response.items()))
+    list_sort=[]
+    for i in sorted_dict:
+        list_sort.append((int(sorted_dict[i]['key']),sorted_dict[i]['list']))
+    return list_sort
 
 def pregunta_09():
     """
@@ -197,8 +337,27 @@ def pregunta_09():
     }
 
     """
-    return
+    import re
+    data=open("./data.csv","r")
+    registros_claves={}
 
+    for row in data:
+        column=row.split(',')
+        registros=[]
+        for string_column in column:
+            x=re.findall('[a-z][a-z][a-z]:[0-999]',string_column)
+            if len(x)>0:
+                registros.append(x[0])
+        for cadena in registros:
+            valores=cadena.split(':')
+            clave=valores[0]
+
+            if clave not in registros_claves:
+                registros_claves[clave]=1
+            else:
+                registros_claves[clave]+=1
+    sorted_dict = dict(sorted(registros_claves.items()))
+    return sorted_dict
 
 def pregunta_10():
     """
@@ -218,8 +377,35 @@ def pregunta_10():
 
 
     """
-    return
+    import re
+    data=open("./data.csv","r")
+    registros_clave=[]
 
+    for row in data:
+        column=row.split(',')
+        column4=[]
+        column5=[]
+        clave=''
+
+        for string_column in column:
+
+            ltr_upper=re.findall('[A-Z]',string_column)
+            if len(ltr_upper)>0:
+                ltr_upper=ltr_upper[0]
+                clave+=ltr_upper
+
+            ltr=re.findall(r'\b[a-z]\b',string_column)
+            if len(ltr)>0:
+                new_ltr=ltr[0]
+                column4.append(new_ltr)
+
+            x=re.findall(r":[0-9]+",string_column)
+            if len(x)>0:
+                new_x=int(x[0].replace(':',''))
+                column5.append(new_x)
+
+        registros_clave.append((clave,len(column4),len(column5)))
+    return registros_clave
 
 def pregunta_11():
     """
@@ -239,9 +425,35 @@ def pregunta_11():
 
 
     """
-    return
+    import re
+    data=open("./data.csv","r")
+    results={}
 
+    for row in data:
+        column=row.split(',')
+        column4=[]
 
+        for string_column in column:
+            ltr=re.findall(r'\b[a-z]\b',string_column)
+            if len(ltr)>0:
+                new_ltr=ltr[0]
+                column4.append(new_ltr)
+
+        for number_colum in column[0]:
+            number_clm=re.findall(r'\b[0-9]\b',number_colum)
+            if len(number_clm)>0:
+                new_ltr=number_clm[0]
+                nbr_colum=int(new_ltr)
+                break
+    
+        for letra in column4:
+            if letra not in results:
+                results[letra]=nbr_colum
+            else:
+                results[letra]+=nbr_colum
+    sorted_dict = dict(sorted(results.items()))
+    return sorted_dict
+  
 def pregunta_12():
     """
     Genere un diccionario que contengan como clave la columna 1 y como valor la suma de
@@ -257,4 +469,32 @@ def pregunta_12():
     }
 
     """
-    return
+    import re
+    data=open("./data.csv","r")
+    registros_clave={}
+
+    for row in data:
+        column=row.split(',')
+        registros=0
+        clave=''
+
+        for string_column in column:
+
+            ltr=re.findall('[A-Z]',string_column)
+            if len(ltr)>0:
+                new_ltr=ltr[0]
+                clave+=new_ltr
+
+            x=re.findall(r":[0-9]+",string_column)
+            if len(x)>0:
+                new_x=int(x[0].replace(':',''))
+                registros+=new_x     
+
+        if clave not in registros_clave:
+            registros_clave[clave]=registros
+        else:
+            registros_clave[clave]+=registros
+
+    sorted_dict = dict(sorted(registros_clave.items()))
+    return sorted_dict
+    
